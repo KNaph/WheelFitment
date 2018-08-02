@@ -5,7 +5,8 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="width_hint">Width</string>
     <string name="tire_profile_hint">Profile</string>
-    <string name="wheel_diameter_hint">Diameter</string>
+    <string name="wheel_diameter_hint">Diameter (in.)</string>
+    <string name="wheel_width_hint">Width (in.)</string>
     <string name="offset_hint">Offset</string>
 
     <string name="submit_text">Submit</string>

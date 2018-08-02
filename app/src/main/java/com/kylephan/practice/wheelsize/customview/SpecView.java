@@ -14,7 +14,6 @@ public class SpecView extends RelativeLayout {
     private static final String TAG = SpecView.class.getSimpleName();
 
 
-
     public SpecView(Context context) {
         super(context);
         init(context);

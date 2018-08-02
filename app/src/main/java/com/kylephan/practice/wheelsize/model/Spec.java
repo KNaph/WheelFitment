@@ -1,6 +1,11 @@
 package com.kylephan.practice.wheelsize.model;
 
+import android.util.Log;
+
 public class Spec {
+
+    private static final String TAG = Spec.class.getSimpleName();
+
     private int tireWidth;
     private int tireProfile;
     private int wheelDiameter;
@@ -39,6 +44,10 @@ public class Spec {
         return tireProfile;
     }
 
+    public double getTireProfileRatio() {
+        return ((double)tireProfile/100);
+    }
+
     public void setTireProfile(int tireProfile) {
         this.tireProfile = tireProfile;
     }
@@ -47,12 +56,20 @@ public class Spec {
         return wheelDiameter;
     }
 
+    public double getWheelDiameterMM() {
+        return wheelDiameter * 25.4;
+    }
+
     public void setWheelDiameter(int wheelDiameter) {
         this.wheelDiameter = wheelDiameter;
     }
 
     public float getWheelWidth() {
         return wheelWidth;
+    }
+
+    public double getWheelWidthMM() {
+        return wheelWidth * 25.4;
     }
 
     public void setWheelWidth(float wheelWidth) {

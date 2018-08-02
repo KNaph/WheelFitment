@@ -6,11 +6,13 @@
     android:orientation="vertical"
     tools:context=".view.CalculatorFragment">
 
-    <com.kylephan.practice.wheelsize.customview.SpecView
+    <ImageView
+        android:id="@+id/spec_canvas"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_gravity="center_horizontal"
         android:layout_weight="1.75"
+        android:background="#acacac"
         />
 
     <GridLayout
@@ -24,37 +26,41 @@
         <android.support.v7.widget.AppCompatEditText
             android:id="@+id/width_et"
             android:hint="@string/width_hint"
-            android:nextFocusRight="@+id/sidewall_et"
+            android:imeOptions="actionNext"
+            android:nextFocusForward="@+id/sidewall_et"
             android:layout_width="@dimen/edittexxt_width"
             android:layout_height="wrap_content"
             android:inputType="number"/>
         <EditText
             android:id="@+id/sidewall_et"
             android:hint="@string/tire_profile_hint"
-            android:nextFocusRight="@+id/wheel_diameter_et"
+            android:imeOptions="actionNext"
+            android:nextFocusForward="@+id/wheel_diameter_et"
             android:layout_width="@dimen/edittexxt_width"
             android:layout_height="wrap_content"
             android:inputType="number"/>
         <EditText
             android:id="@+id/wheel_diameter_et"
             android:hint="@string/wheel_diameter_hint"
-            android:nextFocusRight="@+id/wheel_width_et"
+            android:imeOptions="actionNext"
+            android:nextFocusForward="@+id/wheel_width_et"
             android:layout_width="@dimen/edittexxt_width"
             android:layout_height="wrap_content"
             android:inputType="numberDecimal"/>
         <EditText
             android:id="@+id/wheel_width_et"
-            android:hint="@string/width_hint"
-            android:nextFocusRight="@+id/wheel_offset_et"
+            android:hint="@string/wheel_width_hint"
+            android:imeOptions="actionNext"
+            android:nextFocusForward="@+id/wheel_offset_et"
             android:layout_width="@dimen/edittexxt_width"
             android:layout_height="wrap_content"
-            android:inputType="number"/>
+            android:inputType="number|numberDecimal"/>
         <EditText
             android:id="@+id/wheel_offset_et"
             android:hint="@string/offset_hint"
             android:layout_width="@dimen/edittexxt_width"
             android:layout_height="wrap_content"
-            android:inputType="numberDecimal"/>
+            android:inputType="numberSigned|numberDecimal"/>
     </GridLayout>
     <Button
         android:id="@+id/submit_button"
