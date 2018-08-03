@@ -82,6 +82,7 @@ public class CalculatorFragment extends Fragment {
 
 
         paint = new Paint();
+        paint.setFlags(Paint.ANTI_ALIAS_FLAG);
 //
         int color = ContextCompat.getColor(getContext(), R.color.colorAccent);
         int color2 = ContextCompat.getColor(getContext(), R.color.colorPrimary);
@@ -91,10 +92,15 @@ public class CalculatorFragment extends Fragment {
 //        canvas.drawColor(color2);
 
 
-        canvas.drawRect(viewCenterX - (spec.getTireWidth()/2),
-                (float) ((viewCenterY  - (spec.getWheelDiameterMM()/ 2)) - (spec.getTireWidth() * spec.getTireProfileRatio())),
-                viewCenterX + (spec.getTireWidth()/2),
-                (float) ((viewCenterY  + (spec.getWheelDiameterMM()/ 2)) + (spec.getTireWidth()* spec.getTireProfileRatio())), paint);
+//        canvas.drawRect(viewCenterX - (spec.getTireWidth()/2),
+//                (float) ((viewCenterY  - (spec.getWheelDiameterMM()/ 2)) - (spec.getTireWidth() * spec.getTireProfileRatio())),
+//                viewCenterX + (spec.getTireWidth()/2),
+//                (float) ((viewCenterY  + (spec.getWheelDiameterMM()/ 2)) + (spec.getTireWidth()* spec.getTireProfileRatio())), paint);
+
+
+        canvas.drawLines(spec.getLinePoints(viewCenterX, viewCenterY), paint);
+
+
         paint.setColor(color);
         canvas.drawRect((float) (viewCenterX - (spec.getWheelWidthMM()/2)),
                 (float) (viewCenterY  - (spec.getWheelDiameterMM()/ 2)),
