@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="edittexxt_width">450px</dimen>
+    <dimen name="spec_padding_top">10dp</dimen>
+    <dimen name="spec_padding_bottom">5dp</dimen>
+    <dimen name="spec_font_size">18dp</dimen>
+    <dimen name="spec_divider_margin">20dp</dimen>
+    <dimen name="edittexxt_width">135dp</dimen>
     <dimen name="column_count">1</dimen>
-    <dimen name="gridview_padding">50px</dimen>
-    <dimen name="submit_button_margin">100px</dimen>
+    <dimen name="gridview_padding">20dp</dimen>
+    <dimen name="submit_button_margin">20dp</dimen>
 </resources>

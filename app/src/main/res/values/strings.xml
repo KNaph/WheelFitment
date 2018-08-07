@@ -10,6 +10,8 @@
     <string name="offset_hint">Offset</string>
     <string name="camber_hint">Camber</string>
 
+    <string name="current_spec">Current Spec</string>
+
     <string name="submit_text">Submit</string>
     <string name="complete_form_prompt">All fields must be filled out.</string>
 </resources>
