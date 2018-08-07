@@ -3,4 +3,5 @@
     <color name="colorPrimary">#5e5e5e</color>
     <color name="colorPrimaryDark">#404040</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="crosshair_color">#71409cff</color>
 </resources>

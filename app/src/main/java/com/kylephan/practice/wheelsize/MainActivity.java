@@ -15,12 +15,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        if(findViewById(R.id.fragment_container) != null) {
-            Fragment fragment = new CalculatorFragment();
-            Fragment fragment1 = new CalculatorFragment();
-            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.add(R.id.fragment_container, fragment);
-            ft.commit();
+        if(savedInstanceState == null) {
+            if(findViewById(R.id.fragment_container) != null) {
+                Fragment fragment = new CalculatorFragment();
+                Fragment fragment1 = new CalculatorFragment();
+                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                ft.add(R.id.fragment_container, fragment);
+                ft.commit();
+            }
         }
+
     }
 }

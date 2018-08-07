@@ -2,7 +2,6 @@ package com.kylephan.practice.wheelsize.view;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -16,7 +15,6 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.kylephan.practice.wheelsize.R;
-import com.kylephan.practice.wheelsize.customview.SpecView;
 import com.kylephan.practice.wheelsize.model.Spec;
 
 import butterknife.BindView;
@@ -39,6 +37,7 @@ public class CalculatorFragment extends Fragment {
     @BindView(R.id.wheel_diameter_et) EditText diameterET;
     @BindView(R.id.wheel_width_et) EditText wheelWidthET;
     @BindView(R.id.wheel_offset_et) EditText offsetET;
+    @BindView(R.id.camber_et) EditText camberET;
 
     private Spec spec = new Spec();
 
@@ -75,37 +74,49 @@ public class CalculatorFragment extends Fragment {
         int viewCenterX = viewWidth / 2;
         int viewCenterY = viewHeight / 2;
 
+//        Creating colors
+        int wheelColor = ContextCompat.getColor(getContext(), R.color.colorAccent);
+        int tireColor = ContextCompat.getColor(getContext(), R.color.colorPrimary);
+        int crosshairColor = ContextCompat.getColor(getContext(), R.color.crosshair_color);
+
+//        Set up canvas
         bitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(), Bitmap.Config.ARGB_8888);
         specImageView.setImageBitmap(bitmap);
         canvas = new Canvas(bitmap);
-//        canvas.drawColor(Color.red(123));
 
-
+//        Set up paint
         paint = new Paint();
-        paint.setFlags(Paint.ANTI_ALIAS_FLAG);
-//
-        int color = ContextCompat.getColor(getContext(), R.color.colorAccent);
-        int color2 = ContextCompat.getColor(getContext(), R.color.colorPrimary);
-        paint.setColor(color2);
+//        paint.setColor(tireColor);
         paint.setStyle(Paint.Style.STROKE);
-        paint.setStrokeWidth(10);
-//        canvas.drawColor(color2);
+        paint.setStrokeWidth(5);
+        paint.setFlags(Paint.ANTI_ALIAS_FLAG);
 
+        paint.setColor(crosshairColor);
+        canvas.drawLine(viewCenterX, 0, viewCenterX, 2960, paint);
+        canvas.drawLine(0, viewCenterY, 2960, viewCenterY, paint);
 
-//        canvas.drawRect(viewCenterX - (spec.getTireWidth()/2),
-//                (float) ((viewCenterY  - (spec.getWheelDiameterMM()/ 2)) - (spec.getTireWidth() * spec.getTireProfileRatio())),
-//                viewCenterX + (spec.getTireWidth()/2),
-//                (float) ((viewCenterY  + (spec.getWheelDiameterMM()/ 2)) + (spec.getTireWidth()* spec.getTireProfileRatio())), paint);
+//        Save canvas to draw camber
+        canvas.save();
+        canvas.rotate(spec.getCamber(), viewCenterX, viewCenterY);
 
-
+//        Draw tire
+        paint.setColor(tireColor);
         canvas.drawLines(spec.getLinePoints(viewCenterX, viewCenterY), paint);
 
-
-        paint.setColor(color);
-        canvas.drawRect((float) (viewCenterX - (spec.getWheelWidthMM()/2)),
+//        Draw wheel
+        paint.setColor(wheelColor);
+        canvas.drawRect((float) (viewCenterX - (spec.getWheelWidthMM()/2)) + spec.getWheelOffset(),
                 (float) (viewCenterY  - (spec.getWheelDiameterMM()/ 2)),
-                (float) (viewCenterX + (spec.getWheelWidthMM()/2)),
+                (float) (viewCenterX + (spec.getWheelWidthMM()/2)) + spec.getWheelOffset(),
                 (float) (viewCenterY  + (spec.getWheelDiameterMM()/ 2)), paint);
+        canvas.drawLines(spec.getOffsetPoints(viewCenterX, viewCenterY), paint);
+
+//        DEBUG LINES
+        canvas.restore();
+//        paint.setColor(crosshairColor);
+//        canvas.drawLine(viewCenterX, 0, viewCenterX, 2960, paint);
+//        canvas.drawLine(0, viewCenterY, 2960, viewCenterY, paint);
+
 
 
         view.invalidate();
@@ -117,17 +128,18 @@ public class CalculatorFragment extends Fragment {
                 && !sidewallET.getText().toString().isEmpty()
                 && !diameterET.getText().toString().isEmpty()
                 && !wheelWidthET.getText().toString().isEmpty()
-                && !offsetET.getText().toString().isEmpty()) {
+                && !offsetET.getText().toString().isEmpty()
+                && !camberET.getText().toString().isEmpty()) {
 
             if ((Integer.parseInt(tireWidthET.getText().toString()) < 1) ||
                     (Integer.parseInt(sidewallET.getText().toString()) < 1) ||
                     (Integer.parseInt(diameterET.getText().toString()) < 1) ||
-                    (Float.parseFloat(wheelWidthET.getText().toString()) < 1)) {
+                    (Float.parseFloat(wheelWidthET.getText().toString()) < 1 )) {
 
                 Toast.makeText(getContext(), "Invalid input", Toast.LENGTH_SHORT).show();
                 valid = false;
             } else {
-                Toast.makeText(getContext(), "Calculating fitment", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Calculating", Toast.LENGTH_SHORT).show();
                 valid = true;
             }
         } else {
@@ -148,7 +160,8 @@ public class CalculatorFragment extends Fragment {
                     Integer.parseInt(sidewallET.getText().toString()),
                     Integer.parseInt(diameterET.getText().toString()),
                     Float.parseFloat(wheelWidthET.getText().toString()),
-                    Float.parseFloat(offsetET.getText().toString()));
+                    Float.parseFloat(offsetET.getText().toString()),
+                    Float.parseFloat(camberET.getText().toString()));
 
             drawSpec(spec, specImageView);
         }

@@ -3,29 +3,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:orientation="horizontal"
     tools:context=".view.CalculatorFragment">
 
     <ImageView
         android:id="@+id/spec_canvas"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
         android:layout_gravity="center_horizontal"
-        android:layout_weight="1"
+        android:layout_weight="1.5"
         android:background="#acacac"
         />
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
         android:layout_weight="1"
         android:orientation="vertical">
+
         <GridLayout
             android:id="@+id/calc_gridview"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:columnCount="2"
             android:layout_gravity="center_horizontal"
+            android:columnCount="2"
             android:padding="@dimen/gridview_padding">
             <android.support.v7.widget.AppCompatEditText
                 android:id="@+id/width_et"
@@ -74,13 +76,13 @@
                 android:layout_height="wrap_content"
                 android:inputType="numberSigned|numberDecimal"/>
         </GridLayout>
+
         <Button
             android:id="@+id/submit_button"
-            android:text="@string/submit_text"
-            android:layout_marginBottom="@dimen/submit_button_margin"
-            android:layout_gravity="center_horizontal"
             android:layout_width="@dimen/edittexxt_width"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="@dimen/submit_button_margin"
+            android:text="@string/submit_text" />
     </LinearLayout>
-
 </LinearLayout>
