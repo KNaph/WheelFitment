@@ -1,5 +1,6 @@
 package com.kylephan.practice.wheelsize.view;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -7,6 +8,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +33,7 @@ public class CalculatorFragment extends Fragment {
     private Bitmap bitmap;
 
     @BindView(R.id.spec_canvas) ImageView specImageView;
+    @BindView(R.id.compare_canvas) ImageView compareImageView;
 
     @BindView(R.id.width_et) EditText tireWidthET;
     @BindView(R.id.sidewall_et) EditText sidewallET;
@@ -68,25 +71,31 @@ public class CalculatorFragment extends Fragment {
         Log.d(TAG, "KP## VIEW WIDTH : " + view.getWidth());
         Log.d(TAG, "KP## VIEW HEIGHT : " + view.getHeight());
 
-        int viewWidth = view.getWidth();
-        int viewHeight = view.getHeight();
+//        int viewWidth = view.getWidth();
+//        int viewHeight = view.getHeight();
+
+        int viewWidth = convertDiptoPix(getContext(), 400);
+        int viewHeight = convertDiptoPix(getContext(), 400);
+
+        Log.d(TAG, "KP## VIEW WIDTH : " + viewWidth + " | VIEW HEIGHT : " + viewHeight);
 
         int viewCenterX = viewWidth / 2;
         int viewCenterY = viewHeight / 2;
 
+        Log.d(TAG, "KP## VIEW CENTER X : " + viewCenterX + " | VIEW CENTER Y : " + viewCenterY);
+
 //        Creating colors
-        int wheelColor = ContextCompat.getColor(getContext(), R.color.colorAccent);
-        int tireColor = ContextCompat.getColor(getContext(), R.color.colorPrimary);
+        int wheelColor = ContextCompat.getColor(getContext(), R.color.wheel_color);
+        int tireColor = ContextCompat.getColor(getContext(), R.color.tire_color);
         int crosshairColor = ContextCompat.getColor(getContext(), R.color.crosshair_color);
 
 //        Set up canvas
-        bitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(), Bitmap.Config.ARGB_8888);
+        bitmap = Bitmap.createBitmap(viewWidth, viewHeight, Bitmap.Config.ARGB_8888);
         specImageView.setImageBitmap(bitmap);
         canvas = new Canvas(bitmap);
 
 //        Set up paint
         paint = new Paint();
-//        paint.setColor(tireColor);
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeWidth(5);
         paint.setFlags(Paint.ANTI_ALIAS_FLAG);
@@ -100,26 +109,26 @@ public class CalculatorFragment extends Fragment {
         canvas.rotate(spec.getCamber(), viewCenterX, viewCenterY);
 
 //        Draw tire
-        paint.setColor(tireColor);
-        canvas.drawLines(spec.getLinePoints(viewCenterX, viewCenterY), paint);
+        drawTire(tireColor, viewCenterX, viewCenterY);
 
 //        Draw wheel
-        paint.setColor(wheelColor);
-        canvas.drawRect((float) (viewCenterX - (spec.getWheelWidthMM()/2)) + spec.getWheelOffset(),
-                (float) (viewCenterY  - (spec.getWheelDiameterMM()/ 2)),
-                (float) (viewCenterX + (spec.getWheelWidthMM()/2)) + spec.getWheelOffset(),
-                (float) (viewCenterY  + (spec.getWheelDiameterMM()/ 2)), paint);
-        canvas.drawLines(spec.getOffsetPoints(viewCenterX, viewCenterY), paint);
+        drawWheel(wheelColor, viewCenterX, viewCenterY);
 
 //        DEBUG LINES
         canvas.restore();
-//        paint.setColor(crosshairColor);
-//        canvas.drawLine(viewCenterX, 0, viewCenterX, 2960, paint);
-//        canvas.drawLine(0, viewCenterY, 2960, viewCenterY, paint);
-
-
 
         view.invalidate();
+    }
+
+    private void drawTire(int color, int viewCenterX, int viewCenterY) {
+        paint.setColor(color);
+        canvas.drawLines(spec.getLinePoints(viewCenterX, viewCenterY), paint);
+    }
+
+    private void drawWheel(int color, int viewCenterX, int viewCenterY) {
+        paint.setColor(color);
+        canvas.drawRect(spec.getWheelRect(viewCenterX, viewCenterY), paint);
+        canvas.drawLines(spec.getOffsetPoints(viewCenterX, viewCenterY), paint);
     }
 
     private boolean checkValues() {
@@ -164,6 +173,13 @@ public class CalculatorFragment extends Fragment {
                     Float.parseFloat(camberET.getText().toString()));
 
             drawSpec(spec, specImageView);
+
+
         }
+    }
+
+    public int convertDiptoPix(Context context, float dip) {
+        int value = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dip, context.getResources().getDisplayMetrics());
+        return value;
     }
 }

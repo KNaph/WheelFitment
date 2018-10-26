@@ -1,106 +1,133 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".view.CalculatorFragment">
-
-
-    <ImageView
-        android:id="@+id/spec_canvas"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_weight="1"
-        android:background="#acacac"
-        />
+    tools:context=".view.CalculatorFragment"
+    android:fillViewport="true"
+    android:scrollbars = "vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/current_spec"
-            android:fontFamily="sans-serif-medium"
-            android:textSize="@dimen/spec_font_size"
-            android:textAllCaps="true"
-            android:textStyle="bold"
-            android:paddingTop="@dimen/spec_padding_top"
-            android:paddingBottom="@dimen/spec_padding_bottom"
-            android:layout_marginLeft="@dimen/spec_divider_margin"
-            android:layout_marginRight="@dimen/spec_divider_margin"/>
-        <View
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/colorAccent"
-            android:layout_marginLeft="@dimen/spec_divider_margin"
-            android:layout_marginRight="@dimen/spec_divider_margin"/>
-        <GridLayout
-            android:id="@+id/calc_gridview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:columnCount="2"
-            android:layout_gravity="center_horizontal"
-            android:padding="@dimen/gridview_padding">
-            <android.support.v7.widget.AppCompatEditText
-                android:id="@+id/width_et"
-                android:hint="@string/width_hint"
-                android:imeOptions="actionNext"
-                android:nextFocusForward="@+id/sidewall_et"
-                android:layout_width="@dimen/edittexxt_width"
-                android:layout_height="wrap_content"
-                android:inputType="number"/>
-            <EditText
-                android:id="@+id/sidewall_et"
-                android:hint="@string/tire_profile_hint"
-                android:imeOptions="actionNext"
-                android:nextFocusForward="@+id/wheel_diameter_et"
-                android:layout_width="@dimen/edittexxt_width"
-                android:layout_height="wrap_content"
-                android:inputType="number"/>
-            <EditText
-                android:id="@+id/wheel_diameter_et"
-                android:hint="@string/wheel_diameter_hint"
-                android:imeOptions="actionNext"
-                android:nextFocusForward="@+id/wheel_width_et"
-                android:layout_width="@dimen/edittexxt_width"
-                android:layout_height="wrap_content"
-                android:inputType="numberDecimal"/>
-            <EditText
-                android:id="@+id/wheel_width_et"
-                android:hint="@string/wheel_width_hint"
-                android:imeOptions="actionNext"
-                android:nextFocusForward="@+id/wheel_offset_et"
-                android:layout_width="@dimen/edittexxt_width"
-                android:layout_height="wrap_content"
-                android:inputType="number|numberDecimal"/>
-            <EditText
-                android:id="@+id/wheel_offset_et"
-                android:hint="@string/offset_hint"
-                android:imeOptions="actionNext"
-                android:nextFocusForward="@+id/camber_et"
-                android:layout_width="@dimen/edittexxt_width"
-                android:layout_height="wrap_content"
-                android:inputType="numberSigned|numberDecimal"/>
-            <EditText
-                android:id="@+id/camber_et"
-                android:hint="@string/camber_hint"
-                android:layout_width="@dimen/edittexxt_width"
-                android:layout_height="wrap_content"
-                android:inputType="numberSigned|numberDecimal"/>
-        </GridLayout>
-        <Button
-            android:id="@+id/submit_button"
-            android:text="@string/submit_text"
-            android:layout_marginBottom="@dimen/submit_button_margin"
-            android:layout_gravity="center_horizontal"
-            android:layout_width="@dimen/edittexxt_width"
-            android:layout_height="wrap_content"/>
-    </LinearLayout>
+            android:layout_height="match_parent"
+            android:layout_weight="1">
 
-</LinearLayout>
+            <ImageView
+                android:id="@+id/compare_canvas"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/canvas_height"
+                android:layout_gravity="center_horizontal"
+                android:background="#acacac"
+                android:scaleType="centerInside"/>
+
+            <ImageView
+                android:id="@+id/spec_canvas"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/canvas_height"
+                android:layout_gravity="center_horizontal"
+                android:scaleType="centerInside"/>
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/current_spec"
+                android:fontFamily="sans-serif-medium"
+                android:textSize="@dimen/spec_font_size"
+                android:textAllCaps="true"
+                android:textStyle="bold"
+                android:paddingTop="@dimen/spec_padding_top"
+                android:paddingBottom="@dimen/spec_padding_bottom"
+                android:layout_marginLeft="@dimen/spec_divider_margin"
+                android:layout_marginRight="@dimen/spec_divider_margin"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorAccent"
+                android:layout_marginLeft="@dimen/spec_divider_margin"
+                android:layout_marginRight="@dimen/spec_divider_margin"/>
+            <GridLayout
+                android:id="@+id/calc_gridview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:columnCount="2"
+                android:layout_gravity="center_horizontal"
+                android:padding="@dimen/gridview_padding">
+                <android.support.v7.widget.AppCompatEditText
+                    android:id="@+id/width_et"
+                    android:hint="@string/width_hint"
+                    android:imeOptions="actionNext"
+                    android:nextFocusForward="@+id/sidewall_et"
+                    android:layout_width="@dimen/edittexxt_width"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"/>
+                <EditText
+                    android:id="@+id/sidewall_et"
+                    android:hint="@string/tire_profile_hint"
+                    android:imeOptions="actionNext"
+                    android:nextFocusForward="@+id/wheel_diameter_et"
+                    android:layout_width="@dimen/edittexxt_width"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"/>
+                <EditText
+                    android:id="@+id/wheel_diameter_et"
+                    android:hint="@string/wheel_diameter_hint"
+                    android:imeOptions="actionNext"
+                    android:nextFocusForward="@+id/wheel_width_et"
+                    android:layout_width="@dimen/edittexxt_width"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal"/>
+                <EditText
+                    android:id="@+id/wheel_width_et"
+                    android:hint="@string/wheel_width_hint"
+                    android:imeOptions="actionNext"
+                    android:nextFocusForward="@+id/wheel_offset_et"
+                    android:layout_width="@dimen/edittexxt_width"
+                    android:layout_height="wrap_content"
+                    android:inputType="number|numberDecimal"/>
+                <EditText
+                    android:id="@+id/wheel_offset_et"
+                    android:hint="@string/offset_hint"
+                    android:imeOptions="actionNext"
+                    android:nextFocusForward="@+id/camber_et"
+                    android:layout_width="@dimen/edittexxt_width"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberSigned|numberDecimal"/>
+                <EditText
+                    android:id="@+id/camber_et"
+                    android:hint="@string/camber_hint"
+                    android:layout_width="@dimen/edittexxt_width"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberSigned|numberDecimal"/>
+            </GridLayout>
+            <Button
+                android:id="@+id/submit_button"
+                android:text="@string/submit_text"
+                android:layout_marginBottom="@dimen/submit_button_margin"
+                android:layout_gravity="center_horizontal"
+                android:layout_width="@dimen/edittexxt_width"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="500dp"
+            android:background="@color/colorAccent"
+            />
+
+    </LinearLayout>
+</ScrollView>

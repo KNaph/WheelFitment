@@ -1,9 +1,7 @@
 package com.kylephan.practice.wheelsize.model;
 
-import android.util.Log;
-
-import java.util.ArrayList;
-import java.util.List;
+import android.graphics.Rect;
+import android.graphics.RectF;
 
 public class Spec {
 
@@ -88,6 +86,14 @@ public class Spec {
 
     public double getWheelWidthMM() {
         return wheelWidth * 25.4;
+    }
+
+    public RectF getWheelRect(int viewCenterX, int  viewCenterY) {
+        RectF rect = new RectF((float) (viewCenterX - getWheelWidthMM() / 2) + getWheelOffset(),
+                (float) (viewCenterY  - (getWheelDiameterMM()/ 2)),
+                (float) (viewCenterX + (getWheelWidthMM() / 2)) + getWheelOffset(),
+                (float) (viewCenterY  + (getWheelDiameterMM()/ 2)));
+        return rect;
     }
 
     public float getWheelOffset() {

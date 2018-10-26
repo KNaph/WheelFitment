@@ -8,4 +8,7 @@
     <dimen name="column_count">1</dimen>
     <dimen name="gridview_padding">20dp</dimen>
     <dimen name="submit_button_margin">20dp</dimen>
+
+    <dimen name="canvas_height">400dp</dimen>
+    <dimen name="canvas_width">350dp</dimen>
 </resources>
