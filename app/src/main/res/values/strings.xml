@@ -11,7 +11,9 @@
     <string name="camber_hint">Camber</string>
 
     <string name="current_spec">Current Spec</string>
+    <string name="new_spec">New Spec</string>
 
+    <string name="clear_text">Clear</string>
     <string name="submit_text">Submit</string>
     <string name="complete_form_prompt">All fields must be filled out.</string>
 </resources>
