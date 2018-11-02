@@ -160,7 +160,7 @@ public class CalculatorFragment extends Fragment {
 
         paint.setColor(crosshairColor);
         canvas.drawLine(viewCenterX, 0, viewCenterX, imageView.getWidth(), paint);
-        canvas.drawLine(0, viewCenterY, 2960, imageView.getHeight(), paint);
+        canvas.drawLine(0, viewCenterY, imageView.getHeight(), viewCenterY, paint);
 
 //        Save canvas to draw camber
         canvas.save();
