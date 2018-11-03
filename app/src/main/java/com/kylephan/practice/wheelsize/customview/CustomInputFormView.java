@@ -2,11 +2,8 @@ package com.kylephan.practice.wheelsize.customview;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
-import android.text.Layout;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -34,10 +31,6 @@ public class CustomInputFormView extends LinearLayout {
 
     public CustomInputFormView(Context context) {
         super(context);
-//        LayoutInflater.from(context).inflate(R.layout.input_form_layout, this);
-
-//        LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//        inflater.inflate(R.layout.input_form_layout, this, true);
 
         init(context);
     }
@@ -57,16 +50,7 @@ public class CustomInputFormView extends LinearLayout {
     private void init(Context context) {
         Log.d("CUSTOM INPUT FORM", "KP## INIT FORM");
 
-//        LayoutInflater inflater = LayoutInflater.from(context);
-//        inflater.inflate(R.layout.input_form_layout, (ViewGroup)this.getParent(), false);
-
-//        LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//        this.addView(inflater.inflate(R.layout.input_form_layout, null));
-
-        ViewGroup.inflate(context, R.layout.input_form_layout, this);
-
-
-
+        ViewGroup.inflate(context, R.layout.wheel_input_form_layout, this);
         unbinder = ButterKnife.bind(this);
     }
 

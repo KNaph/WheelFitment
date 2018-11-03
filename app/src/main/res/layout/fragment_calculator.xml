@@ -51,7 +51,7 @@
             android:orientation="vertical"
             android:background="@color/background">
             <com.kylephan.practice.wheelsize.customview.CustomInputFormView
-                android:id="@+id/inputform1"
+                android:id="@+id/wheel_input_1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:outlineProvider="bounds"/>
@@ -72,11 +72,23 @@
             </RelativeLayout>
         </LinearLayout>
 
-        <com.kylephan.practice.wheelsize.customview.CustomInputFormView
-            android:id="@+id/inputform2"
+        <LinearLayout
+            android:id="@+id/advanced_panel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="gone"/>
+            android:orientation="vertical"
+            android:visibility="gone">
+            <com.kylephan.practice.wheelsize.customview.CustomInputFormView
+                android:id="@+id/wheel_input_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <com.kylephan.practice.wheelsize.customview.FenderInputFormView
+                android:id="@+id/fender_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"

@@ -2,7 +2,6 @@ package com.kylephan.practice.wheelsize.view;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -19,13 +18,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.kylephan.practice.wheelsize.R;
 import com.kylephan.practice.wheelsize.customview.CustomInputFormView;
+import com.kylephan.practice.wheelsize.customview.FenderInputFormView;
+import com.kylephan.practice.wheelsize.model.FenderSpec;
 import com.kylephan.practice.wheelsize.model.Spec;
 
 import butterknife.BindView;
@@ -44,19 +44,25 @@ public class CalculatorFragment extends Fragment {
     private int viewWidth;
     private int viewHeight;
 
+    private int viewCenterX;
+    private int viewCenterY;
+
     @BindView(R.id.spec_canvas) ImageView specImageView;
     @BindView(R.id.compare_canvas) ImageView compareImageView;
     @BindView(R.id.fender_canvas) ImageView fenderImageView;
 
     @BindView(R.id.advanced_checkbox) CheckBox advancedCheckbox;
+    @BindView(R.id.advanced_panel) LinearLayout advancedPanel;
     @BindView(R.id.form_holder) LinearLayout formHolder;
 
-    @BindView(R.id.inputform1) CustomInputFormView form1;
-    @BindView(R.id.inputform2) CustomInputFormView form2;
+    @BindView(R.id.wheel_input_1) CustomInputFormView wheelInputForm1;
+    @BindView(R.id.wheel_input_2) CustomInputFormView wheelInputForm2;
+    @BindView(R.id.fender_input) FenderInputFormView fenderInputForm;
 
 
     private Spec spec = new Spec();
     private Spec spec2 = new Spec();
+    private FenderSpec fenderSpec = new FenderSpec();
 
     public CalculatorFragment() {
         // Required empty public constructor
@@ -65,7 +71,6 @@ public class CalculatorFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
 
     }
 
@@ -88,27 +93,28 @@ public class CalculatorFragment extends Fragment {
         viewWidth = convertDiptoPix(getContext(), 400);
         viewHeight = convertDiptoPix(getContext(), 400);
 
-        form1.setTitleTextView(R.string.current_spec);
-        form2.setTitleTextView(R.string.new_spec);
-        form2.setZ(-1);
+        wheelInputForm1.setTitleTextView(R.string.current_spec);
+        wheelInputForm2.setTitleTextView(R.string.new_spec);
+        fenderInputForm.setTitleTextView(R.string.fender_spec);
+        advancedPanel.setZ(-1);
         advancedCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked) {
-                    form2.animate()
-                            .translationY((-form2.getHeight()))
+                    advancedPanel.animate()
+                            .translationY((-advancedPanel.getHeight()))
                             .alpha(1.0f)
                             .setListener(new AnimatorListenerAdapter() {
                                 @Override
                                 public void onAnimationEnd(Animator animation) {
                                     super.onAnimationEnd(animation);
                                     formHolder.setElevation(0);
-                                    form2.setVisibility(View.GONE);
+                                    advancedPanel.setVisibility(View.GONE);
                                 }
                             });
                 } else {
-                    form2.setVisibility(View.VISIBLE);
-                    form2.animate()
+                    advancedPanel.setVisibility(View.VISIBLE);
+                    advancedPanel.animate()
                             .translationY(0)
                             .alpha(1.0f)
                             .setListener(new AnimatorListenerAdapter() {
@@ -130,8 +136,8 @@ public class CalculatorFragment extends Fragment {
 
         Log.d(TAG, "KP## VIEW WIDTH : " + viewWidth + " | VIEW HEIGHT : " + viewHeight);
 
-        int viewCenterX = viewWidth / 2;
-        int viewCenterY = viewHeight / 2;
+        viewCenterX = viewWidth / 2;
+        viewCenterY = viewHeight / 2;
 
         Log.d(TAG, "KP## VIEW CENTER X : " + viewCenterX + " | VIEW CENTER Y : " + viewCenterY);
 
@@ -152,11 +158,7 @@ public class CalculatorFragment extends Fragment {
 //        canvas = new Canvas(bitmap);
         setBitmap(imageView, viewWidth, viewHeight);
 
-//        Set up paint
-        paint = new Paint();
-        paint.setStyle(Paint.Style.STROKE);
-        paint.setStrokeWidth(5);
-        paint.setFlags(Paint.ANTI_ALIAS_FLAG);
+        setPaint();
 
         paint.setColor(crosshairColor);
         canvas.drawLine(viewCenterX, 0, viewCenterX, imageView.getWidth(), paint);
@@ -189,6 +191,15 @@ public class CalculatorFragment extends Fragment {
         canvas.drawLines(spec.getOffsetPoints(viewCenterX, viewCenterY), paint);
     }
 
+    private void drawFender(FenderSpec spec, ImageView imageView, int viewCenterX, int  viewCenterY) {
+        setBitmap(imageView, viewWidth, viewHeight);
+        int fenderColor = ContextCompat.getColor(getContext(), R.color.fender_color);
+        paint.setColor(fenderColor);
+        float[] points = spec.getLinePoints(viewCenterX, viewCenterY);
+        canvas.drawLines(spec.getLinePoints(viewCenterX, viewCenterY), paint);
+        imageView.invalidate();
+    }
+
     private void setBitmap(ImageView imageView, int viewWidth, int viewHeight) {
         //        Set up canvas
         bitmap = Bitmap.createBitmap(viewWidth, viewHeight, Bitmap.Config.ARGB_8888);
@@ -196,19 +207,27 @@ public class CalculatorFragment extends Fragment {
         canvas = new Canvas(bitmap);
     }
 
+    private void setPaint() {
+        //        Set up paint
+        paint = new Paint();
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setStrokeWidth(5);
+        paint.setFlags(Paint.ANTI_ALIAS_FLAG);
+    }
+
     private boolean checkValues() {
         boolean valid = false;
-        if (form1.tireWidthEmpty()
-                && form1.sidewallEmpty()
-                && form1.diameterEmpty()
-                && form1.wheelWidthEmpty()
-                && form1.offsetEmpty()
-                && form1.camberEmpty()) {
+        if (wheelInputForm1.tireWidthEmpty()
+                && wheelInputForm1.sidewallEmpty()
+                && wheelInputForm1.diameterEmpty()
+                && wheelInputForm1.wheelWidthEmpty()
+                && wheelInputForm1.offsetEmpty()
+                && wheelInputForm1.camberEmpty()) {
 
-            if ((form1.getTireWidth() < 1) ||
-                    (form1.getSidewallRatio() < 1) ||
-                    (form1.getWheelDiameter() < 1) ||
-                    (form1.getWheelWidth() < 1 )) {
+            if ((wheelInputForm1.getTireWidth() < 1) ||
+                    (wheelInputForm1.getSidewallRatio() < 1) ||
+                    (wheelInputForm1.getWheelDiameter() < 1) ||
+                    (wheelInputForm1.getWheelWidth() < 1 )) {
 
                 Toast.makeText(getContext(), "Invalid input", Toast.LENGTH_SHORT).show();
                 valid = false;
@@ -229,24 +248,31 @@ public class CalculatorFragment extends Fragment {
         if(checkValues()) {
 
             spec.setAllSpecs(
-                    form1.getTireWidth(),
-                    form1.getSidewallRatio(),
-                    form1.getWheelDiameter(),
-                    form1.getWheelWidth(),
-                    form1.getWheelOffset(),
-                    form1.getWheelCamber());
+                    wheelInputForm1.getTireWidth(),
+                    wheelInputForm1.getSidewallRatio(),
+                    wheelInputForm1.getWheelDiameter(),
+                    wheelInputForm1.getWheelWidth(),
+                    wheelInputForm1.getWheelOffset(),
+                    wheelInputForm1.getWheelCamber());
 
             drawSpec(spec, specImageView);
 
             spec2.setAllSpecs(
-                    form2.getTireWidth(),
-                    form2.getSidewallRatio(),
-                    form2.getWheelDiameter(),
-                    form2.getWheelWidth(),
-                    form2.getWheelOffset(),
-                    form2.getWheelCamber());
+                    wheelInputForm2.getTireWidth(),
+                    wheelInputForm2.getSidewallRatio(),
+                    wheelInputForm2.getWheelDiameter(),
+                    wheelInputForm2.getWheelWidth(),
+                    wheelInputForm2.getWheelOffset(),
+                    wheelInputForm2.getWheelCamber());
 
             drawSpec(spec2, compareImageView);
+
+            fenderSpec.setAllSpecs(
+                    fenderInputForm.getFenderDepth(),
+                    fenderInputForm.getFenderHeight(),
+                    fenderInputForm.getFenderAngle());
+
+            drawFender(fenderSpec, fenderImageView, viewCenterX, viewCenterY);
         }
     }
 

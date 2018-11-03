@@ -10,8 +10,13 @@
     <string name="offset_hint">Offset</string>
     <string name="camber_hint">Camber</string>
 
+    <string name="depth_hint">Depth(MM.)</string>
+    <string name="height_hint">Height(MM.)</string>
+    <string name="angle_hint">Angle(°)</string>
+
     <string name="current_spec">Current Spec</string>
     <string name="new_spec">New Spec</string>
+    <string name="fender_spec">Fender Position</string>
 
     <string name="clear_text">Clear</string>
     <string name="submit_text">Submit</string>

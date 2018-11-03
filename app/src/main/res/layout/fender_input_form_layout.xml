@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:elevation="1dp">
+        <TextView
+            android:id="@+id/title_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-medium"
+            android:textSize="@dimen/spec_font_size"
+            android:textColor="@color/primaryTextColor"
+            android:paddingTop="@dimen/spec_padding_top"
+            android:paddingBottom="@dimen/spec_padding_top"
+            android:layout_marginLeft="@dimen/spec_divider_margin"
+            android:layout_marginRight="@dimen/spec_divider_margin" />
+    </RelativeLayout>
+    <GridLayout
+        android:id="@+id/calc_gridview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:columnCount="2"
+        android:layout_gravity="center_horizontal"
+        android:padding="@dimen/gridview_padding">
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/depth_et"
+            android:hint="@string/depth_hint"
+            android:imeOptions="actionNext"
+            android:nextFocusForward="@+id/sidewall_et"
+            android:layout_width="@dimen/edittexxt_width"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal" />
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/height_et"
+            android:hint="@string/height_hint"
+            android:imeOptions="actionNext"
+            android:nextFocusForward="@+id/wheel_diameter_et"
+            android:layout_width="@dimen/edittexxt_width"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"/>
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/angle_et"
+            android:hint="@string/angle_hint"
+            android:imeOptions="actionNext"
+            android:nextFocusForward="@+id/wheel_width_et"
+            android:layout_width="@dimen/edittexxt_width"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"/>
+    </GridLayout>
+
+</LinearLayout>

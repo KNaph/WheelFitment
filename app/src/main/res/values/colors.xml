@@ -9,6 +9,7 @@
 
     <color name="primaryTextColor">#000000</color>
 
+    <color name="fender_color">#000000</color>
     <color name="tire_color">#262626</color>
     <color name="wheel_color">#4076ff</color>
     <color name="wheel_color2">#cc2424</color>
