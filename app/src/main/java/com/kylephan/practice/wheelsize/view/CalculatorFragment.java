@@ -27,6 +27,7 @@ import com.kylephan.practice.wheelsize.customview.CustomInputFormView;
 import com.kylephan.practice.wheelsize.customview.FenderInputFormView;
 import com.kylephan.practice.wheelsize.model.FenderSpec;
 import com.kylephan.practice.wheelsize.model.Spec;
+import com.kylephan.practice.wheelsize.util.AppUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -64,6 +65,8 @@ public class CalculatorFragment extends Fragment {
     private Spec spec2 = new Spec();
     private FenderSpec fenderSpec = new FenderSpec();
 
+    private static AppUtil appUtil = AppUtil.getInstance();
+
     public CalculatorFragment() {
         // Required empty public constructor
     }
@@ -90,8 +93,8 @@ public class CalculatorFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         ButterKnife.bind(this, getView());
-        viewWidth = convertDiptoPix(getContext(), 400);
-        viewHeight = convertDiptoPix(getContext(), 400);
+        viewWidth = appUtil.dp2px(getContext(), 400);
+        viewHeight = appUtil.dp2px(getContext(), 400);
 
         wheelInputForm1.setTitleTextView(R.string.current_spec);
         wheelInputForm2.setTitleTextView(R.string.new_spec);
@@ -282,11 +285,4 @@ public class CalculatorFragment extends Fragment {
         setBitmap(compareImageView, viewWidth, viewHeight);
         setBitmap(fenderImageView, viewWidth, viewHeight);
     }
-
-    public int convertDiptoPix(Context context, float dip) {
-        int value = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dip, context.getResources().getDisplayMetrics());
-        return value;
-    }
-
-
 }

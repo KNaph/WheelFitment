@@ -11,10 +11,10 @@ public class FenderSpec {
 
     /**
      *              calcDepth
-     *               ________
-     *              |       /
-     *              |     /
-     *  calcHeight  |   / fenderLength
+     *               _________
+     *              |        /
+     *              |      /
+     *  calcHeight  |    / fenderLength
      *              |  /
      *              |/
      *
