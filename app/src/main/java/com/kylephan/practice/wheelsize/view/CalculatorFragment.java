@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -245,6 +246,20 @@ public class CalculatorFragment extends Fragment {
         return valid;
     }
 
+    private boolean checkViewValues(ViewGroup viewGroup) {
+        boolean isValid = true;
+        for (int i = 0; i <viewGroup.getChildCount();  i++) {
+            View child = viewGroup.getChildAt(i);
+            if (child instanceof EditText) {
+                if (((EditText) child).getText().equals("")) {
+                    isValid = false;
+                    return isValid;
+                }
+            }
+        }
+        return isValid;
+    }
+
     @OnClick(R.id.submit_button)
     public void onSubmitClick() {
 //        drawSpec(spec, specImageView);
@@ -277,6 +292,11 @@ public class CalculatorFragment extends Fragment {
 
             drawFender(fenderSpec, fenderImageView, viewCenterX, viewCenterY);
         }
+
+        checkViewValues(wheelInputForm1);
+
+        this.getActivity().getCurrentFocus().clearFocus();
+        specImageView.requestFocus();
     }
 
     @OnClick(R.id.clear_button)

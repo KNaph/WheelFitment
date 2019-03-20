@@ -32,7 +32,6 @@
             android:id="@+id/depth_et"
             android:hint="@string/depth_hint"
             android:imeOptions="actionNext"
-            android:nextFocusForward="@+id/sidewall_et"
             android:layout_width="@dimen/edittexxt_width"
             android:layout_height="wrap_content"
             android:inputType="numberDecimal" />
@@ -40,15 +39,13 @@
             android:id="@+id/height_et"
             android:hint="@string/height_hint"
             android:imeOptions="actionNext"
-            android:nextFocusForward="@+id/wheel_diameter_et"
             android:layout_width="@dimen/edittexxt_width"
             android:layout_height="wrap_content"
             android:inputType="numberDecimal"/>
         <android.support.v7.widget.AppCompatEditText
             android:id="@+id/angle_et"
             android:hint="@string/angle_hint"
-            android:imeOptions="actionNext"
-            android:nextFocusForward="@+id/wheel_width_et"
+            android:imeOptions="actionDone"
             android:layout_width="@dimen/edittexxt_width"
             android:layout_height="wrap_content"
             android:inputType="numberDecimal"/>

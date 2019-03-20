@@ -8,14 +8,18 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.kylephan.practice.wheelsize.R;
+import com.kylephan.practice.wheelsize.util.TextValidator;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 public class FenderInputFormView extends LinearLayout {
+
+    private static final String TAG = FenderInputFormView.class.getSimpleName();
 
     private Unbinder unbinder;
 
@@ -48,11 +52,80 @@ public class FenderInputFormView extends LinearLayout {
         init(context);
     }
 
-    private void init(Context context) {
+    private void init(final Context context) {
         Log.d("CUSTOM INPUT FORM", "KP## INIT FORM");
 
         ViewGroup.inflate(context, R.layout.fender_input_form_layout, this);
         unbinder = ButterKnife.bind(this);
+
+        depthET.addTextChangedListener(new TextValidator(depthET) {
+            @Override
+            public void validate(TextView textView, String text) {
+                if (!text.equals("")) {
+                    if (text.startsWith(".")) {
+                        String newString = "";
+                        newString = new StringBuilder(text).insert(0, "0").toString();
+                        text = newString;
+                        textView.setText(text);
+                        depthET.setSelection(text.length());
+                        Log.d(TAG, "KP## this is the new value : " + text);
+                    }
+                    if (Float.parseFloat(text) < 0) {
+                        Log.d(TAG, "KP## this is the value : " + text);
+                        Toast.makeText(context, "Invalid Input!...?", Toast.LENGTH_SHORT).show();
+                        textView.setText("");
+                    }
+                } else {
+                    Toast.makeText(context, "Invalid Input!!..?", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        heightET.addTextChangedListener(new TextValidator(heightET) {
+            @Override
+            public void validate(TextView textView, String text) {
+                if (!text.equals("")) {
+                    if (text.startsWith(".")) {
+                        String newString = "";
+                        newString = new StringBuilder(text).insert(0, "0").toString();
+                        text = newString;
+                        textView.setText(text);
+                        heightET.setSelection(text.length());
+                        Log.d(TAG, "KP## this is the new value : " + text);
+                    }
+                    if (Float.parseFloat(text) < 0) {
+                        Log.d(TAG, "KP## this is the value : " + text);
+                        Toast.makeText(context, "Invalid Input!...?", Toast.LENGTH_SHORT).show();
+                        textView.setText("");
+                    }
+                } else {
+                    Toast.makeText(context, "Invalid Input!!..?", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        angleET.addTextChangedListener(new TextValidator(angleET) {
+            @Override
+            public void validate(TextView textView, String text) {
+                if (!text.equals("")) {
+                    if (text.startsWith(".")) {
+                        String newString = "";
+                        newString = new StringBuilder(text).insert(0, "0").toString();
+                        text = newString;
+                        textView.setText(text);
+                        angleET.setSelection(text.length());
+                        Log.d(TAG, "KP## this is the new value : " + text);
+                    }
+                    if (Float.parseFloat(text) < 0) {
+                        Log.d(TAG, "KP## this is the value : " + text);
+                        Toast.makeText(context, "Invalid Input!...?", Toast.LENGTH_SHORT).show();
+                        textView.setText("");
+                    }
+                } else {
+                    Toast.makeText(context, "Invalid Input!!..?", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     @Override

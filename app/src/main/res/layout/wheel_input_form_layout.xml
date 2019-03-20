@@ -36,7 +36,6 @@
             android:id="@+id/width_et"
             android:hint="@string/width_hint"
             android:imeOptions="actionNext"
-            android:nextFocusForward="@+id/sidewall_et"
             android:layout_width="@dimen/edittexxt_width"
             android:layout_height="wrap_content"
             android:inputType="number" />
@@ -44,7 +43,6 @@
             android:id="@+id/sidewall_et"
             android:hint="@string/tire_profile_hint"
             android:imeOptions="actionNext"
-            android:nextFocusForward="@+id/wheel_diameter_et"
             android:layout_width="@dimen/edittexxt_width"
             android:layout_height="wrap_content"
             android:inputType="number"/>
@@ -52,7 +50,6 @@
             android:id="@+id/wheel_diameter_et"
             android:hint="@string/wheel_diameter_hint"
             android:imeOptions="actionNext"
-            android:nextFocusForward="@+id/wheel_width_et"
             android:layout_width="@dimen/edittexxt_width"
             android:layout_height="wrap_content"
             android:inputType="numberDecimal"/>
@@ -60,7 +57,6 @@
             android:id="@+id/wheel_width_et"
             android:hint="@string/wheel_width_hint"
             android:imeOptions="actionNext"
-            android:nextFocusForward="@+id/wheel_offset_et"
             android:layout_width="@dimen/edittexxt_width"
             android:layout_height="wrap_content"
             android:inputType="number|numberDecimal"/>
@@ -68,13 +64,13 @@
             android:id="@+id/wheel_offset_et"
             android:hint="@string/offset_hint"
             android:imeOptions="actionNext"
-            android:nextFocusForward="@+id/camber_et"
             android:layout_width="@dimen/edittexxt_width"
             android:layout_height="wrap_content"
             android:inputType="numberSigned|numberDecimal"/>
         <android.support.v7.widget.AppCompatEditText
             android:id="@+id/camber_et"
             android:hint="@string/camber_hint"
+            android:imeOptions="actionDone|actionNext"
             android:layout_width="@dimen/edittexxt_width"
             android:layout_height="wrap_content"
             android:inputType="numberSigned|numberDecimal"/>
